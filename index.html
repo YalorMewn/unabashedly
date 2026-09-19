@@ -92,6 +92,13 @@
   .card.featured .cta{background:var(--ink);color:var(--yellow);}
   .card.featured:hover .cta{background:var(--paper);color:var(--ink);}
 
+  /* hot: Own The Outcome */
+  .card.hot{background:var(--red);}
+  .card.hot:hover{background:var(--red);}
+  .card.hot .card-desc,.card.hot .meta,.card.hot .note{color:var(--ink);}
+  .card.hot .cta{background:var(--ink);color:var(--paper);}
+  .card.hot:hover .cta{background:var(--paper);color:var(--ink);}
+
   /* two info cards side by side */
   .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   .pair .card-title{font-size:clamp(17px,2.2vw,19px);}
@@ -131,10 +138,9 @@
 <main class="page">
 
   <header class="head">
-    <h1 class="wordmark display">Unabashedly.</h1>
-    <p class="handle mono">Coaching with Taylor Arnold</p>
+    <h1 class="wordmark display">Unabashedly</h1>
+    <p class="handle mono">Live Unabashedly</p>
     <p class="tagline">Coaching for fathers and men seeking a partnership that lasts.</p>
-    <a class="handle mono" href="https://www.instagram.com/unabashedlydaddy/" target="_blank" rel="noopener">@unabashedlydaddy</a>
   </header>
 
   <nav class="stack" aria-label="Ways to start">
@@ -150,7 +156,7 @@
       </div>
     </a>
 
-    <a class="card" href="work-with-me.html#own-the-outcome">
+    <a class="card hot" href="work-with-me.html#own-the-outcome">
       <div class="card-top">
         <h2 class="card-title">Own The Outcome</h2>
         <span class="meta mono">90 days</span>
@@ -163,7 +169,7 @@
 
     <a class="card" href="https://www.skool.com/dad-club-8098/about" target="_blank" rel="noopener">
       <div class="card-top">
-        <h2 class="card-title">The Unfiltered Dad Club</h2>
+        <h2 class="card-title">The Dad Club</h2>
         <span class="meta mono">Community</span>
       </div>
       <p class="card-desc">The space for dads who'd rather shoot it straight.</p>

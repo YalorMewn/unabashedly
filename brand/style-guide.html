@@ -1,0 +1,625 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>The Brutalist Grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1EEE7;
+    --paper-2:#E7E1D2;
+    --ink:#0E0D0C;
+    --ink-2:#54514A;
+    --yellow:#F4C61E;
+    --red:#E64327;
+    --rule:3px;
+    --radius-sm:10px;
+    --radius-md:16px;
+    color-scheme: light;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    padding-inline:clamp(16px,4vw,56px);
+    padding-block:clamp(20px,4vw,48px);
+  }
+  h1,h2,h3{ font-weight:400; margin:0; }
+  p{ margin:0; }
+  img{max-width:100%;}
+
+  .display{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:'Space Mono', monospace;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--ink-2);
+  }
+
+  .sheet{
+    max-width:1180px;
+    margin:0 auto;
+    border:var(--rule) solid var(--ink);
+    border-radius:22px;
+    overflow:hidden;
+    background:var(--paper);
+  }
+
+  /* ---- masthead ---- */
+  .masthead{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:26px clamp(18px,3vw,44px);
+    border-bottom:var(--rule) solid var(--ink);
+  }
+  .wordmark{ font-size:clamp(24px,3vw,32px); }
+  .masthead-meta{
+    display:flex;
+    gap:22px;
+    flex-wrap:wrap;
+  }
+  .masthead-meta span{
+    font-size:13px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+  }
+
+  /* ---- intro ---- */
+  .intro{
+    padding:clamp(28px,5vw,56px) clamp(18px,3vw,44px);
+    border-bottom:var(--rule) solid var(--ink);
+    display:flex;
+    flex-direction:column;
+    gap:26px;
+  }
+  .intro h1{
+    font-size:clamp(40px,7vw,84px);
+    line-height:0.92;
+    text-wrap:balance;
+    max-width:16ch;
+  }
+  .intro p{
+    max-width:62ch;
+    font-size:clamp(16px,1.9vw,20px);
+    line-height:1.55;
+    color:var(--ink-2);
+  }
+  .tagrow{ display:flex; flex-wrap:wrap; gap:12px; }
+  .tag{
+    border:2px solid var(--ink);
+    border-radius:999px;
+    padding:8px 18px;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
+
+  /* ---- section shell ---- */
+  .section{
+    display:flex;
+    border-bottom:var(--rule) solid var(--ink);
+  }
+  .section:last-of-type{ border-bottom:none; }
+  .section-num{
+    flex:0 0 clamp(72px,9vw,140px);
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding-top:clamp(28px,4vw,44px);
+    font-size:clamp(34px,4vw,56px);
+    border-right:var(--rule) solid var(--ink);
+    background:var(--paper-2);
+  }
+  .section-body{
+    flex:1;
+    min-width:0;
+    padding:clamp(28px,4vw,44px);
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+  }
+  .section-title{
+    font-family:'Space Grotesk';
+    font-weight:700;
+    font-size:clamp(22px,2.6vw,30px);
+    letter-spacing:-0.2px;
+    text-transform:uppercase;
+  }
+  .section-lede{
+    max-width:70ch;
+    color:var(--ink-2);
+    font-size:16px;
+    line-height:1.6;
+  }
+
+  /* ---- color swatches ---- */
+  .swatches{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:2px;
+    border:2px solid var(--ink);
+    border-radius:var(--radius-md);
+    overflow:hidden;
+  }
+  .swatch{
+    background:var(--paper);
+    padding:22px 20px;
+    min-height:150px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:18px;
+    border-right:2px solid var(--ink);
+    border-bottom:2px solid var(--ink);
+  }
+  .swatch-chip{ height:56px; border-radius:8px; border:2px solid var(--ink); }
+  .swatch-name{ font-weight:700; font-size:15px; text-transform:uppercase; letter-spacing:0.5px; }
+  .swatch-use{ font-size:13px; color:var(--ink-2); line-height:1.4; }
+  .swatch-code{ font-family:'Space Mono'; font-size:12.5px; color:var(--ink-2); }
+
+  /* ---- type specimens ---- */
+  .type-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:2px;
+    border:2px solid var(--ink);
+    border-radius:var(--radius-md);
+    overflow:hidden;
+  }
+  .type-card{
+    flex:1 1 260px;
+    background:var(--paper);
+    padding:24px;
+    border-right:2px solid var(--ink);
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .type-card:last-child{ border-right:none; }
+  .type-sample-display{ font-family:'Anton'; font-size:44px; text-transform:uppercase; line-height:0.95; }
+  .type-sample-body{ font-family:'Space Grotesk'; font-weight:500; font-size:22px; }
+  .type-sample-mono{ font-family:'Space Mono'; font-size:19px; }
+  .type-role{ font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:1px; }
+  .type-spec{ font-family:'Space Mono'; font-size:12.5px; color:var(--ink-2); line-height:1.6; }
+
+  table.scale{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  table.scale th, table.scale td{
+    text-align:left;
+    padding:12px 14px;
+    border-bottom:2px solid var(--ink);
+  }
+  table.scale th{
+    font-family:'Space Mono';
+    font-size:12px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--ink-2);
+    border-bottom:2.5px solid var(--ink);
+  }
+  table.scale td.samp{ font-family:'Anton'; text-transform:uppercase; }
+  .table-wrap{ overflow-x:auto; border:2px solid var(--ink); border-radius:var(--radius-md); padding:4px 18px; }
+
+  /* ---- spacing/grid ---- */
+  .spacing-scale{ display:flex; flex-direction:column; gap:10px; }
+  .spacing-row{ display:flex; align-items:center; gap:16px; }
+  .spacing-bar{ height:20px; background:var(--ink); border-radius:4px; }
+  .spacing-label{ font-family:'Space Mono'; font-size:13px; width:74px; flex-shrink:0; }
+
+  .radius-row{ display:flex; flex-wrap:wrap; gap:18px; }
+  .radius-chip{
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+  }
+  .radius-box{ width:84px; height:84px; border:3px solid var(--ink); background:var(--paper-2); }
+  .radius-chip span{ font-family:'Space Mono'; font-size:12px; }
+
+  /* ---- components ---- */
+  .comp-grid{ display:flex; flex-direction:column; gap:28px; }
+  .comp-block{ display:flex; flex-direction:column; gap:12px; }
+  .comp-label{ font-family:'Space Mono'; font-size:12.5px; letter-spacing:1px; text-transform:uppercase; color:var(--ink-2); }
+  .comp-stage{
+    border:2px solid var(--ink);
+    border-radius:var(--radius-md);
+    padding:24px;
+    background:var(--paper-2);
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:18px;
+  }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--yellow);
+    border:3px solid var(--ink);
+    border-radius:999px;
+    padding:14px 26px;
+    font-weight:700; font-size:15px; letter-spacing:0.5px; text-transform:uppercase;
+  }
+  .navdemo{ display:flex; border:2px solid var(--ink); border-radius:12px; overflow:hidden; }
+  .navdemo div{ padding:12px 20px; font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; border-right:2px solid var(--ink); }
+  .navdemo div:last-child{ border-right:none; background:var(--yellow); }
+
+  .rowdemo{ display:flex; flex-direction:column; width:100%; border:2px solid var(--ink); border-radius:12px; overflow:hidden; }
+  .rowdemo .r{ display:flex; border-bottom:2px solid var(--ink); }
+  .rowdemo .r:last-child{ border-bottom:none; }
+  .rowdemo .n{ font-family:'Anton'; font-size:26px; padding:16px 20px; border-right:2px solid var(--ink); background:var(--paper); flex:0 0 70px; display:flex; align-items:center; }
+  .rowdemo .t{ padding:16px 20px; font-size:15px; display:flex; align-items:center; background:var(--paper); }
+  .rowdemo .r.hot .n, .rowdemo .r.hot .t{ background:var(--red); font-weight:700; }
+  .rowdemo .r.warm{ position:relative; }
+  .rowdemo .r.warm::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:8px; background:var(--yellow); }
+  .rowdemo .r.warm .n{ padding-left:28px; font-weight:700; }
+  .rowdemo .r.warm .t{ font-weight:700; }
+
+  .tickerdemo{ display:flex; width:100%; border:2px solid var(--ink); border-radius:12px; overflow:hidden; font-size:14px; }
+  .tickerdemo div{ padding:14px 20px; display:flex; align-items:center; gap:10px; }
+  .tickerdemo .a{ border-right:2px solid var(--ink); font-family:'Space Mono'; }
+  .tickerdemo .b{ flex:1; font-weight:700; border-right:2px solid var(--ink); }
+  .tickerdemo .c{ background:var(--yellow); font-weight:700; text-transform:uppercase; font-size:12.5px; letter-spacing:1px; }
+  .pulse{ width:10px; height:10px; border-radius:50%; background:var(--ink); }
+
+  .iconrow{ display:flex; gap:16px; align-items:center; }
+  .icon-circle{ width:56px; height:56px; border-radius:50%; border:3px solid var(--ink); display:flex; align-items:center; justify-content:center; }
+  .icon-tile{ width:56px; height:56px; border-radius:14px; border:3px solid var(--ink); background:var(--red); display:flex; align-items:center; justify-content:center; }
+
+  /* ---- imagery ---- */
+  .imagery-wrap{ display:flex; flex-wrap:wrap; gap:24px; align-items:stretch; }
+  .imagery-sample{
+    flex:1 1 320px;
+    min-height:220px;
+    border:2px solid var(--ink);
+    border-radius:var(--radius-md);
+    position:relative;
+    overflow:hidden;
+    background:#B9B6AC;
+  }
+  .imagery-sample .blk{ position:absolute; }
+  .imagery-notes{ flex:1 1 280px; display:flex; flex-direction:column; gap:14px; }
+  .rulelist{ display:flex; flex-direction:column; gap:10px; }
+  .rulelist .r{ display:flex; gap:10px; font-size:15px; }
+  .rulelist .r span.mark{ font-weight:700; flex-shrink:0; }
+
+  /* ---- voice ---- */
+  .voice-cols{ display:grid; grid-template-columns:1fr 1fr; gap:2px; border:2px solid var(--ink); border-radius:var(--radius-md); overflow:hidden; }
+  .voice-col{ padding:22px 24px; display:flex; flex-direction:column; gap:14px; background:var(--paper); }
+  .voice-col.no{ border-left:2px solid var(--ink); }
+  .voice-head{ font-weight:700; text-transform:uppercase; font-size:13px; letter-spacing:1px; }
+  .voice-item{ font-size:15px; line-height:1.5; }
+  .voice-item.good::before{ content:"— "; }
+  .voice-item.bad{ color:var(--ink-2); text-decoration:line-through; }
+
+  /* ---- do/dont ---- */
+  .dd-grid{ display:grid; grid-template-columns:1fr 1fr; gap:2px; border:2px solid var(--ink); border-radius:var(--radius-md); overflow:hidden; }
+  .dd-col{ padding:24px; background:var(--paper); display:flex; flex-direction:column; gap:12px; }
+  .dd-col.dont{ border-left:2px solid var(--ink); }
+  .dd-head{ font-weight:700; text-transform:uppercase; font-size:14px; letter-spacing:1px; display:flex; align-items:center; gap:10px; }
+  .dd-item{ display:flex; gap:10px; font-size:15px; line-height:1.4; }
+  .dd-item b{ flex-shrink:0; }
+
+  /* ---- footer ---- */
+  .footer{
+    padding:22px clamp(18px,3vw,44px);
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:10px;
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .footer span{ font-family:'Space Mono'; font-size:12.5px; letter-spacing:0.5px; }
+
+  @media (max-width: 640px){
+    .section{ flex-direction:column; }
+    .section-num{ flex-direction:row; justify-content:flex-start; padding:14px clamp(18px,3vw,44px); border-right:none; border-bottom:var(--rule) solid var(--ink); }
+    .voice-cols, .dd-grid{ grid-template-columns:1fr; }
+    .voice-col.no, .dd-col.dont{ border-left:none; border-top:2px solid var(--ink); }
+  }
+</style>
+
+<div class="sheet">
+
+  <div class="masthead">
+    <div class="wordmark display">Style Guide.</div>
+    <div class="masthead-meta mono">
+      <span>V1.0</span>
+      <span>Sept 2026</span>
+      <span>For: Web Designer</span>
+    </div>
+  </div>
+
+  <div class="intro">
+    <h1 class="display">The Brutalist Grid</h1>
+    <p>This is the visual system behind the new site direction — distilled from the reference we aligned on so every screen gets built against the same rules: a raw bordered grid, one heavy display face, two accent colors, and nothing decorative that isn't also structural.</p>
+    <div class="tagrow">
+      <div class="tag">Bold</div>
+      <div class="tag">Structural</div>
+      <div class="tag">Direct</div>
+      <div class="tag">Unapologetic</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-num display">01</div>
+    <div class="section-body">
+      <div class="section-title">Color</div>
+      <p class="section-lede">Four colors, used flat — no gradients, no tints, no drop shadows. Paper and ink carry the page; yellow and red are both accents, never combined in the same block. Two warm neutrals cover secondary text and dividers.</p>
+      <div class="swatches">
+        <div class="swatch">
+          <div class="swatch-chip" style="background:#F1EEE7;"></div>
+          <div>
+            <div class="swatch-name">Paper</div>
+            <div class="swatch-use">Primary ground for every screen.</div>
+          </div>
+          <div class="swatch-code">#F1EEE7 · rgb(241,238,231)</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-chip" style="background:#0E0D0C;"></div>
+          <div>
+            <div class="swatch-name">Ink</div>
+            <div class="swatch-use">Text, rules, borders. Never softened to gray.</div>
+          </div>
+          <div class="swatch-code">#0E0D0C · rgb(14,13,12)</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-chip" style="background:#F4C61E;"></div>
+          <div>
+            <div class="swatch-name">Yellow</div>
+            <div class="swatch-use">Primary CTA + status / availability accent.</div>
+          </div>
+          <div class="swatch-code">#F4C61E · rgb(244,198,30)</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-chip" style="background:#E64327;"></div>
+          <div>
+            <div class="swatch-name">Red</div>
+            <div class="swatch-use">Single-item emphasis. One per screen, max.</div>
+          </div>
+          <div class="swatch-code">#E64327 · rgb(230,67,39)</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-chip" style="background:#54514A;"></div>
+          <div>
+            <div class="swatch-name">Ink / 70</div>
+            <div class="swatch-use">Secondary text, captions, muted labels.</div>
+          </div>
+          <div class="swatch-code">#54514A · rgb(84,81,74)</div>
+        </div>
+        <div class="swatch" style="border-right:none;">
+          <div class="swatch-chip" style="background:#E7E1D2;"></div>
+          <div>
+            <div class="swatch-name">Paper / 2</div>
+            <div class="swatch-use">Panel fills, table stripes, hover states.</div>
+          </div>
+          <div class="swatch-code">#E7E1D2 · rgb(231,225,210)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-num display">02</div>
+    <div class="section-body">
+      <div class="section-title">Typography</div>
+      <p class="section-lede">Three faces, three jobs. Anton carries headlines and numerals at scale — it's never used below 32px. Space Grotesk runs everything else a person reads. Space Mono is reserved for anything that behaves like data: hex codes, timestamps, measurements, tags.</p>
+      <div class="type-row">
+        <div class="type-card">
+          <div class="type-sample-display">Aa 01</div>
+          <div class="type-role">Anton — Display</div>
+          <div class="type-spec">Headlines, hero statements, big numerals.<br>Uppercase. Weight: 400 (only weight).<br>Size: 32px+. Tracking: -1%.</div>
+        </div>
+        <div class="type-card">
+          <div class="type-sample-body">Aa Body 01</div>
+          <div class="type-role">Space Grotesk — Body / UI</div>
+          <div class="type-spec">Paragraphs, nav, buttons, labels.<br>Weights: 400 / 500 / 700.<br>Size: 15–20px. Sentence case.</div>
+        </div>
+        <div class="type-card">
+          <div class="type-sample-mono">Aa 01:23</div>
+          <div class="type-role">Space Mono — Data</div>
+          <div class="type-spec">Hex codes, timestamps, tags, specs.<br>Weights: 400 / 700.<br>Size: 12–15px. Tracking: +1–2px.</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="scale">
+          <thead>
+            <tr><th>Role</th><th>Face</th><th>Weight</th><th>Size</th><th>Case</th><th>Sample</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Hero headline</td><td>Anton</td><td>400</td><td>56–96px</td><td>UPPER</td><td class="samp">Just Win</td></tr>
+            <tr><td>Section title</td><td>Space Grotesk</td><td>700</td><td>22–30px</td><td>UPPER</td><td class="samp" style="font-family:'Space Grotesk';">Section Title</td></tr>
+            <tr><td>Body copy</td><td>Space Grotesk</td><td>400–500</td><td>16–20px</td><td>Sentence</td><td class="samp" style="font-family:'Space Grotesk'; text-transform:none; font-weight:400;">Body copy sample</td></tr>
+            <tr><td>Button / nav</td><td>Space Grotesk</td><td>700</td><td>14–15px</td><td>UPPER</td><td class="samp" style="font-family:'Space Grotesk';">Read More</td></tr>
+            <tr><td>Data / eyebrow</td><td>Space Mono</td><td>400–700</td><td>12–15px</td><td>UPPER</td><td class="samp" style="font-family:'Space Mono'; text-transform:uppercase;">#F4C61E</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-num display">03</div>
+    <div class="section-body">
+      <div class="section-title">Spacing &amp; Grid</div>
+      <p class="section-lede">Every panel sits inside a 3px ink border on a shared grid — rules are structural, not ornamental. Corners stay sharp on containers and grid cells; radius is reserved for anything a person clicks.</p>
+      <div class="spacing-scale">
+        <div class="spacing-row"><span class="spacing-label mono">8px</span><div class="spacing-bar" style="width:8px;"></div></div>
+        <div class="spacing-row"><span class="spacing-label mono">16px</span><div class="spacing-bar" style="width:16px;"></div></div>
+        <div class="spacing-row"><span class="spacing-label mono">24px</span><div class="spacing-bar" style="width:24px;"></div></div>
+        <div class="spacing-row"><span class="spacing-label mono">40px</span><div class="spacing-bar" style="width:40px;"></div></div>
+        <div class="spacing-row"><span class="spacing-label mono">56px</span><div class="spacing-bar" style="width:56px;"></div></div>
+        <div class="spacing-row"><span class="spacing-label mono">80px</span><div class="spacing-bar" style="width:80px;"></div></div>
+      </div>
+      <div class="radius-row">
+        <div class="radius-chip">
+          <div class="radius-box" style="border-radius:0;"></div>
+          <span>0 — grid / cards</span>
+        </div>
+        <div class="radius-chip">
+          <div class="radius-box" style="border-radius:12px;"></div>
+          <span>12px — tiles / icons</span>
+        </div>
+        <div class="radius-chip">
+          <div class="radius-box" style="border-radius:22px;"></div>
+          <span>22px — outer frame</span>
+        </div>
+        <div class="radius-chip">
+          <div class="radius-box" style="border-radius:999px; width:120px;"></div>
+          <span>Full — buttons / nav</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-num display">04</div>
+    <div class="section-body">
+      <div class="section-title">Components</div>
+      <p class="section-lede">The core kit. Everything on the site should be built from these six patterns before a new one gets invented.</p>
+      <div class="comp-grid">
+
+        <div class="comp-block">
+          <div class="comp-label">Primary button — pill, yellow, 3px border, always paired with an arrow</div>
+          <div class="comp-stage"><div class="btn">Start a Project ↗</div></div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-label">Nav — bordered cells, divided by rules, CTA cell filled yellow</div>
+          <div class="comp-stage">
+            <div class="navdemo">
+              <div>Work</div><div>About</div><div>Services</div><div>Contact ↗</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-label">Numbered row — default / flagged (yellow rail) / emphasized (full red)</div>
+          <div class="comp-stage">
+            <div class="rowdemo">
+              <div class="r"><div class="n">01</div><div class="t">Default row — plain text on paper.</div></div>
+              <div class="r warm"><div class="n">02</div><div class="t">Flagged row — thin yellow rail, bold text.</div></div>
+              <div class="r hot"><div class="n">03</div><div class="t">Emphasized row — full red fill, black bold text.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-label">Status ticker — one per page, max</div>
+          <div class="comp-stage" style="display:block;">
+            <div class="tickerdemo">
+              <div class="a">(2026)</div>
+              <div class="b">A short, declarative statement goes here.</div>
+              <div class="c"><span class="pulse"></span> Live</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-block">
+          <div class="comp-label">Icon shapes — circle for navigation, rounded tile for accent icons</div>
+          <div class="comp-stage">
+            <div class="iconrow">
+              <div class="icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="#0E0D0C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="icon-tile">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2V22M4 7L20 17M20 7L4 17" stroke="#F1EEE7" stroke-width="2.4" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-num display">05</div>
+    <div class="section-body">
+      <div class="section-title">Imagery</div>
+      <div class="imagery-wrap">
+        <div class="imagery-sample">
+          <div class="blk" style="left:0; bottom:0; width:38%; height:60%; background:#3A3A38;"></div>
+          <div class="blk" style="left:38%; bottom:0; width:24%; height:88%; background:#8A8781;"></div>
+          <div class="blk" style="left:62%; bottom:0; width:16%; height:44%; background:#5B5954;"></div>
+          <div class="blk" style="right:0; bottom:0; width:22%; height:100%; background:#171716;"></div>
+        </div>
+        <div class="imagery-notes">
+          <p class="section-lede">Photography leans architectural and high-contrast — concrete, raw structure, hard shadows. It supports the grid instead of softening it.</p>
+          <div class="rulelist">
+            <div class="r"><span class="mark">—</span> Black-and-white or heavily desaturated only.</div>
+            <div class="r"><span class="mark">—</span> Architectural, industrial, or material subjects over lifestyle/people shots.</div>
+            <div class="r"><span class="mark">—</span> Hard-edged crops inside the grid — no rounded photo frames, no floating shadows.</div>
+            <div class="r"><span class="mark">—</span> No color photography, no gradients, no lens flare / bokeh.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-num display">06</div>
+    <div class="section-body">
+      <div class="section-title">Voice &amp; Tone</div>
+      <p class="section-lede">Short, declarative, second person. Statements, not questions. Every headline should survive being read out loud in one breath.</p>
+      <div class="voice-cols">
+        <div class="voice-col">
+          <div class="voice-head">Write it like this</div>
+          <div class="voice-item good">No more excuses.</div>
+          <div class="voice-item good">We don't wait for motivation. We show up anyway.</div>
+          <div class="voice-item good">Read daily. No exceptions.</div>
+        </div>
+        <div class="voice-col no">
+          <div class="voice-head">Not like this</div>
+          <div class="voice-item bad">Are you ready to unlock your potential?</div>
+          <div class="voice-item bad">We're passionate about helping you succeed on your journey!</div>
+          <div class="voice-item bad">Just a friendly reminder to check in daily :)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-num display">07</div>
+    <div class="section-body">
+      <div class="section-title">Do / Don't</div>
+      <div class="dd-grid">
+        <div class="dd-col">
+          <div class="dd-head">Do</div>
+          <div class="dd-item"><b>—</b> Thick ink rules doing structural work.</div>
+          <div class="dd-item"><b>—</b> One accent color driving each screen; the second held in reserve.</div>
+          <div class="dd-item"><b>—</b> Sharp grid, rounded only where something is clickable.</div>
+          <div class="dd-item"><b>—</b> Generous negative space around every headline.</div>
+        </div>
+        <div class="dd-col dont">
+          <div class="dd-head">Don't</div>
+          <div class="dd-item"><b>×</b> Gradients or drop shadows, anywhere.</div>
+          <div class="dd-item"><b>×</b> Yellow and red in the same block.</div>
+          <div class="dd-item"><b>×</b> Thin or light-weight display type.</div>
+          <div class="dd-item"><b>×</b> Decorative icons that aren't also navigation or status.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>THE BRUTALIST GRID — V1.0</span>
+    <span>PREPARED FOR HANDOFF — QUESTIONS BACK TO YALOR</span>
+  </div>
+
+</div>
+
+</body></html>

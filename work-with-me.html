@@ -175,6 +175,43 @@
   .footer a:hover{color:var(--yellow);}
   .footer a:focus-visible{outline-color:var(--paper);}
 
+
+  /* commitment tiers */
+  .tiers{border-bottom:var(--rule) solid var(--ink);}
+  .principle{
+    padding:clamp(28px,4vw,44px) clamp(18px,3vw,48px);
+    border-bottom:var(--rule) solid var(--ink);
+    display:flex;flex-direction:column;gap:14px;
+  }
+  .principle .big{
+    font-family:'Anton',Impact,'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:-.01em;
+    font-size:clamp(28px,3.6vw,46px);line-height:1.02;max-width:26ch;
+  }
+  .principle p{font-size:clamp(16px,1.8vw,19px);line-height:1.55;color:var(--ink-2);max-width:54ch;}
+
+  .row.tier{grid-template-columns:clamp(110px,13vw,160px) minmax(0,1fr) clamp(150px,18vw,215px) auto;}
+  .row-price{
+    display:flex;flex-direction:column;justify-content:center;gap:4px;
+    padding:24px clamp(14px,2vw,26px);border-left:2px solid var(--ink);
+  }
+  .price-mo{font-family:'Anton',Impact,sans-serif;font-size:clamp(30px,3.6vw,44px);line-height:.9;letter-spacing:-.01em;}
+  .price-mo sup{font-size:.45em;vertical-align:super;font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .price-per{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;font-family:'Space Mono',ui-monospace,monospace;}
+  .price-total{font-size:12.5px;letter-spacing:1px;color:var(--ink-2);font-family:'Space Mono',ui-monospace,monospace;margin-top:4px;}
+  .row.hot .price-total{color:var(--ink);}
+
+  .flag{
+    align-self:flex-start;background:var(--ink);color:var(--paper);
+    font-family:'Space Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:2px;
+    text-transform:uppercase;padding:4px 9px;
+  }
+  .perks{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;}
+  .perks li{
+    font-family:'Space Mono',ui-monospace,monospace;font-size:12.5px;letter-spacing:.5px;
+    display:flex;gap:9px;align-items:baseline;
+  }
+  .perks li::before{content:"+";font-weight:700;flex-shrink:0;}
+
   @media (max-width:860px){
     .hero{grid-template-columns:1fr;}
     .hero-copy{border-right:none;border-bottom:var(--rule) solid var(--ink);}
@@ -189,6 +226,14 @@
     .row-unit .n{font-size:40px;}
     .row-body{padding-bottom:8px;}
     .row-go{padding-top:8px;padding-bottom:26px;padding-inline:clamp(18px,3vw,40px);}
+    .row.tier{grid-template-columns:1fr;}
+    .row-price{
+      border-left:none;border-top:2px solid var(--ink);
+      flex-direction:row;align-items:baseline;gap:10px;flex-wrap:wrap;
+      padding-inline:clamp(18px,3vw,40px);
+    }
+    .price-total{margin-top:0;}
+    .row.tier .row-go .btn{width:100%;justify-content:center;}
   }
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{transition:none!important;}}
 </style>
@@ -212,7 +257,7 @@
       <p class="hero-lede">Coaching for fathers and men seeking a partnership that lasts.</p>
       <div class="actions">
         <a class="btn primary" href="https://app.reclaim.ai/m/taylor-cmprssn/clarity-call" target="_blank" rel="noopener">Book a Clarity Call <span class="dim">· 30 min</span> ↗</a>
-        <a class="btn" href="#own-the-outcome">Own The Outcome <span class="dim">· 90 days</span> →</a>
+        <a class="btn" href="#own-the-outcome">Own The Outcome <span class="dim">· 3 / 6 / 12 months</span> →</a>
         <a class="btn" href="https://www.skool.com/dad-club-8098/about" target="_blank" rel="noopener">Join The Dad Club ↗</a>
         <a class="soft" href="#philosophy">Not ready? Explore the philosophy <span aria-hidden="true">→</span></a>
       </div>
@@ -252,14 +297,14 @@
       <div class="row-go"><a class="btn" href="https://app.reclaim.ai/m/taylor-cmprssn/clarity-call" target="_blank" rel="noopener">Book the call ↗</a></div>
     </div>
 
-    <div class="row hot" id="own-the-outcome">
-      <div class="row-unit"><span class="n display">90</span><span class="u mono">Days</span></div>
+    <div class="row">
+      <div class="row-unit"><span class="n display">1:1</span><span class="u mono">Coaching</span></div>
       <div class="row-body">
         <span class="row-kicker mono">1:1 Coaching Container</span>
         <h3 class="row-title">Own The Outcome</h3>
-        <p class="row-desc">90 days of 1:1 coaching for fathers and men seeking a partnership that lasts.</p>
+        <p class="row-desc">1:1 coaching for fathers and men seeking a partnership that lasts. Three terms — three, six or twelve months.</p>
       </div>
-      <div class="row-go"><a class="btn" href="https://app.reclaim.ai/m/taylor-cmprssn/clarity-call" target="_blank" rel="noopener">Apply via Clarity Call ↗</a></div>
+      <div class="row-go"><a class="btn" href="#own-the-outcome">See the three terms →</a></div>
     </div>
 
     <div class="row">
@@ -270,6 +315,69 @@
         <p class="row-desc">The space for dads who'd rather shoot it straight.</p>
       </div>
       <div class="row-go"><a class="btn" href="https://www.skool.com/dad-club-8098/about" target="_blank" rel="noopener">Join on Skool ↗</a></div>
+    </div>
+  </section>
+
+
+  <section class="tiers" id="own-the-outcome" aria-labelledby="tiers-title">
+    <div class="section-head">
+      <h2 class="section-title" id="tiers-title">Own The Outcome</h2>
+      <span class="eyebrow">Three levels of commitment</span>
+    </div>
+
+    <div class="principle">
+      <h3 class="big">The longer you commit, the less you pay.</h3>
+      <p>Not a discount. Change takes time, and the men who give it time get further. The rate reflects what the work actually asks of you &mdash; so the price rewards the thing that makes it work.</p>
+    </div>
+
+    <div class="row tier">
+      <div class="row-unit"><span class="n display">3</span><span class="u mono">Months</span></div>
+      <div class="row-body">
+        <span class="row-kicker mono">Get moving</span>
+        <h3 class="row-title">Starter</h3>
+        <p class="row-desc">Ninety days of 1:1 coaching. Enough to break the pattern and see what changes when you stop negotiating with yourself.</p>
+      </div>
+      <div class="row-price">
+        <span class="price-mo"><sup>$</sup>1,000</span>
+        <span class="price-per">Per month</span>
+        <span class="price-total">$3,000 total</span>
+      </div>
+      <div class="row-go"><a class="btn" href="https://app.reclaim.ai/m/taylor-cmprssn/clarity-call" target="_blank" rel="noopener">Apply &#8599;</a></div>
+    </div>
+
+    <div class="row tier">
+      <div class="row-unit"><span class="n display">6</span><span class="u mono">Months</span></div>
+      <div class="row-body">
+        <span class="row-kicker mono">Build it in</span>
+        <h3 class="row-title">Serious</h3>
+        <p class="row-desc">Half a year. Long enough that the new way of showing up stops being effort and starts being who you are.</p>
+      </div>
+      <div class="row-price">
+        <span class="price-mo"><sup>$</sup>750</span>
+        <span class="price-per">Per month</span>
+        <span class="price-total">$4,500 total &middot; save $250/mo</span>
+      </div>
+      <div class="row-go"><a class="btn" href="https://app.reclaim.ai/m/taylor-cmprssn/clarity-call" target="_blank" rel="noopener">Apply &#8599;</a></div>
+    </div>
+
+    <div class="row tier hot">
+      <div class="row-unit"><span class="n display">12</span><span class="u mono">Months</span></div>
+      <div class="row-body">
+        <span class="flag">Best rate</span>
+        <span class="row-kicker mono">All the way</span>
+        <h3 class="row-title">Fully Committed</h3>
+        <p class="row-desc">A full year at half the starting rate. For the man who is done with half measures and wants this handled properly.</p>
+        <ul class="perks">
+          <li>Lifetime access to my full course library</li>
+          <li>Quarterly catch-ups with me &mdash; for life</li>
+        </ul>
+      </div>
+      <div class="row-price">
+        <span class="price-mo"><sup>$</sup>500</span>
+        <span class="price-per">Per month</span>
+        <span class="price-total">$6,000 total &middot; save $500/mo</span>
+      </div>
+      <div class="row-go"><a class="btn" href="https://app.reclaim.ai/m/taylor-cmprssn/clarity-call" target="_blank" rel="noopener">Apply &#8599;</a></div>
     </div>
   </section>
 

@@ -154,6 +154,7 @@
   .philosophy h2{font-size:clamp(44px,6vw,80px);line-height:.9;text-wrap:balance;}
   .philosophy .intro{display:flex;flex-direction:column;gap:18px;}
   .philosophy .intro p{font-size:clamp(17px,1.9vw,20px);line-height:1.55;color:var(--ink-2);max-width:44ch;}
+  .phil-cta{display:flex;flex-direction:column;align-items:flex-start;gap:14px;}
   form{display:flex;flex-direction:column;gap:12px;}
   label{font-family:'Space Mono',ui-monospace,monospace;font-size:12.5px;letter-spacing:2px;text-transform:uppercase;}
   .field{display:flex;flex-wrap:wrap;gap:12px;}
@@ -209,6 +210,15 @@
     font-family:'Space Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:2px;
     text-transform:uppercase;padding:4px 9px;
   }
+  .includes{
+    list-style:none;margin:6px 0 0;padding:16px 0 0;border-top:2px solid var(--ink);
+    display:flex;flex-direction:column;gap:7px;max-width:54ch;
+  }
+  .includes li{
+    font-family:'Space Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.5px;
+    display:flex;gap:10px;align-items:baseline;
+  }
+  .includes li::before{content:"\2014";font-weight:700;flex-shrink:0;}
   .perks{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;}
   .perks li{
     font-family:'Space Mono',ui-monospace,monospace;font-size:12.5px;letter-spacing:.5px;
@@ -249,7 +259,7 @@
     <a class="wordmark display" href="index.html">Unabashedly</a>
     <nav class="nav" aria-label="Primary">
       <a href="#who">Who it's for</a>
-      <a href="#philosophy">Philosophy</a>
+      <a href="#philosophy">Not ready?</a>
       <a href="https://calendly.com/yalortackson-4yzz/30min" target="_blank" rel="noopener">Clarity Call ↗</a>
     </nav>
   </header>
@@ -263,7 +273,7 @@
         <a class="btn primary" href="https://calendly.com/yalortackson-4yzz/30min" target="_blank" rel="noopener">Book a Clarity Call <span class="dim">· 30 min</span> ↗</a>
         <a class="btn" href="#own-the-outcome">Own The Outcome <span class="dim">· 3 / 6 / 12 months</span> →</a>
         <a class="btn" href="https://www.skool.com/dad-club-8098/about" target="_blank" rel="noopener">Join The Dad Club ↗</a>
-        <a class="soft" href="#philosophy">Not ready? Explore the philosophy <span aria-hidden="true">→</span></a>
+        <a class="soft" href="#philosophy">Not ready? Start with a conversation <span aria-hidden="true">→</span></a>
       </div>
     </div>
     <div class="hero-photo">
@@ -332,6 +342,10 @@
     <div class="principle">
       <h3 class="big">The longer you commit, the less you pay.</h3>
       <p>Not a discount. Change takes time, and the men who give it time get further. The rate reflects what the work actually asks of you &mdash; so the price rewards the thing that makes it work.</p>
+      <ul class="includes">
+        <li>Four 1:1 sessions a month through your first ninety days</li>
+        <li>Floating sessions for whatever comes up, scaled to the length of your term</li>
+      </ul>
     </div>
 
     <div class="row tier">
@@ -389,19 +403,14 @@
 
   <section class="philosophy" id="philosophy" aria-labelledby="phil-title">
     <div class="intro">
-      <div class="eyebrow">Free PDF</div>
+      <div class="eyebrow">No commitment</div>
       <h2 class="display" id="phil-title">Not ready to commit?</h2>
-      <p>Explore my philosophy first. Leave your email and I'll send you the PDF.</p>
+      <p>Then don't. Book the call anyway &mdash; thirty minutes, no pitch. We work out together whether this is right for you, and you leave with a plan either way.</p>
     </div>
-    <form id="lead-form" novalidate>
-      <label for="email">Your email</label>
-      <div class="field">
-        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
-        <button class="btn primary" type="submit">Send me the PDF ↗</button>
-      </div>
-      <p class="form-note" id="form-note" role="status" hidden></p>
-      <p class="fine">One PDF, straight to your inbox.</p>
-    </form>
+    <div class="phil-cta">
+      <a class="btn primary" href="https://calendly.com/yalortackson-4yzz/30min" target="_blank" rel="noopener">Book a Clarity Call <span class="dim">&middot; 30 min</span> ↗</a>
+      <p class="fine">Every way in starts with a conversation.</p>
+    </div>
   </section>
 
   <footer class="footer">
@@ -411,20 +420,5 @@
 
 </div>
 
-<script>
-  // Placeholder until the email tool is connected: validates, then says so plainly.
-  document.getElementById('lead-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var input = document.getElementById('email');
-    var note = document.getElementById('form-note');
-    note.hidden = false;
-    if (!input.checkValidity()) {
-      note.textContent = 'Enter a full email address, like you@example.com.';
-      input.focus();
-      return;
-    }
-    note.textContent = 'Preview only — this form isn’t connected to email yet.';
-  });
-</script>
 </body>
 </html>
